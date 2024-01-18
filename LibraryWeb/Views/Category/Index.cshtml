@@ -1,5 +1,7 @@
 ﻿@model List<Category>
 
+<partial name="_Notification"/>
+
 
     <div class="container">
     <div class="row pt-4 pb-3">
@@ -27,6 +29,7 @@
             <th>
                 Display Order
             </th>
+            <th></th>
 
         </tr>
     </thead>
@@ -41,6 +44,16 @@
                 </td>
                 <td>
                     @obj.DisplayOrder
+                </td>
+                <td> 
+                    <div class="w-75 btn-group" role="group">
+                        <a href="/Category/Edit?Id=@obj.Id"  class="btn btn-primary mx-2">
+                                <i class="bi bi-pencil-square"></i> Edit
+                        </a>
+                            <a href="/Category/Delete?Id=@obj.Id" class="btn btn-danger mx-2">
+                             <i class="bi bi-trash-fill"></i> Delete
+                            </a>
+                    </div>
                 </td>
             </tr>
         }
