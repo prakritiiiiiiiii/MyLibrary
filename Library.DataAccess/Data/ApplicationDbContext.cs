@@ -1,7 +1,7 @@
-﻿using LibraryWeb.Models;
+﻿using Library.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace LibraryWeb.Data
+namespace Library.DataAccess.Data
 {
     public class ApplicationDbContext : DbContext
     {
