@@ -8,14 +8,14 @@ namespace LibraryWeb.Controllers
     public class CategoryController : Controller
     {
 
-        private readonly IUnitOfWork _unitOfWork;
-        public CategoryController(IUnitOfWork unitOfWork)
+        private readonly ICategoryRepository _categoryRepo;
+        public CategoryController(ICategoryRepository categoryRepository)
         {
-            _unitOfWork = unitOfWork;
+            _categoryRepo = categoryRepository;
         }
         public IActionResult Index()
         {
-            List<Category> objCategoryList = _unitOfWork.Category.GetAll().ToList();
+            List<Category> objCategoryList = _categoryRepo.GetAll().ToList();
             return View(objCategoryList);
         }
 
