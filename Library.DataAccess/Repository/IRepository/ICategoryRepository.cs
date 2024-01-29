@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Library.DataAccess.Repository.IRepository
 {
-    public interface ICategoryRepository : IRepository<Category>
+    public interface ICategoryRepository : IRepository<Models.Category>
     {
         void Save();
-        void Update(Category obj);
+        void Update(Models.Category obj);
 
     }
 }
