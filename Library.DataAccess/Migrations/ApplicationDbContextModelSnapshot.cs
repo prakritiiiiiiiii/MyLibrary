@@ -73,6 +73,109 @@ namespace Library.DataAccess.Migrations
                             Name = "Fantasy"
                         });
                 });
+
+            modelBuilder.Entity("Library.Models.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Author")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ISBN")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<double>("ListPrice")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("Price100")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("Price50")
+                        .HasColumnType("double precision");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Author = "Adventure Author",
+                            Description = "An epic adventure filled with twists and turns.",
+                            ISBN = "978-1234567890",
+                            ListPrice = 39.990000000000002,
+                            Price = 29.989999999999998,
+                            Price100 = 24.989999999999998,
+                            Price50 = 27.989999999999998,
+                            Title = "The Adventure Chronicles"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Author = "Self Help Guru",
+                            Description = "Unlock your potential and achieve greatness.",
+                            ISBN = "978-0987654321",
+                            ListPrice = 49.990000000000002,
+                            Price = 39.990000000000002,
+                            Price100 = 34.990000000000002,
+                            Price50 = 37.990000000000002,
+                            Title = "Self-Help Mastery"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Author = "Colleen Hoover",
+                            Description = "A powerful and heart-wrenching story about love and choices.",
+                            ISBN = "978-0123456789",
+                            ListPrice = 49.990000000000002,
+                            Price = 39.990000000000002,
+                            Price100 = 34.990000000000002,
+                            Price50 = 37.990000000000002,
+                            Title = "It Ends With Us"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Author = "Thriller Mastermind",
+                            Description = "A suspenseful journey into the world of mystery and intrigue.",
+                            ISBN = "978-0123456789",
+                            ListPrice = 44.990000000000002,
+                            Price = 34.990000000000002,
+                            Price100 = 28.989999999999998,
+                            Price50 = 31.989999999999998,
+                            Title = "The Thriller Code"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Author = "Fantasy Weaver",
+                            Description = "Immerse yourself in a fantastical world of magic and wonder.",
+                            ISBN = "978-5678901234",
+                            ListPrice = 29.989999999999998,
+                            Price = 19.989999999999998,
+                            Price100 = 14.99,
+                            Price50 = 17.989999999999998,
+                            Title = "Fantasy Realm"
+                        });
+                });
 #pragma warning restore 612, 618
         }
     }
