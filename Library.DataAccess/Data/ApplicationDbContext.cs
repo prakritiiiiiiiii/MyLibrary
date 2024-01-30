@@ -32,7 +32,11 @@ namespace Library.DataAccess.Data
                 ListPrice = 39.99,
                 Price = 29.99,
                 Price50 = 27.99,
-                Price100 = 24.99
+                Price100 = 24.99,
+                CategoryId=1,
+                ImageUrl=""
+               
+
             },
             new Product
             {
@@ -44,7 +48,9 @@ namespace Library.DataAccess.Data
                 ListPrice = 49.99,
                 Price = 39.99,
                 Price50 = 37.99,
-                Price100 = 34.99
+                Price100 = 34.99,
+                CategoryId=2,
+                ImageUrl = ""
             },
             new Product
             {
@@ -56,7 +62,9 @@ namespace Library.DataAccess.Data
                 ListPrice = 49.99,
                 Price = 39.99,
                 Price50 = 37.99,
-                Price100 = 34.99
+                Price100 = 34.99,
+                CategoryId=3,
+                ImageUrl = ""
             },
             new Product
             {
@@ -68,7 +76,9 @@ namespace Library.DataAccess.Data
                 ListPrice = 44.99,
                 Price = 34.99,
                 Price50 = 31.99,
-                Price100 = 28.99
+                Price100 = 28.99,
+                CategoryId=4,
+                ImageUrl = ""
             },
             new Product
             {
@@ -80,7 +90,9 @@ namespace Library.DataAccess.Data
                 ListPrice = 29.99,
                 Price = 19.99,
                 Price50 = 17.99,
-                Price100 = 14.99
+                Price100 = 14.99,
+                CategoryId=5,
+                ImageUrl = ""
             }
         );
 
