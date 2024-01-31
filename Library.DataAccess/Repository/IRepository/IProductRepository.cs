@@ -12,5 +12,6 @@ namespace Library.DataAccess.Repository.IRepository
         void Save();
         void Update(Models.Product obj);
 
+
     }
 }
