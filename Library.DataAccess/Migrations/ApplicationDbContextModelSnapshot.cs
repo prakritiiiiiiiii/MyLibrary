@@ -98,7 +98,6 @@ namespace Library.DataAccess.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<double>("ListPrice")
@@ -131,7 +130,7 @@ namespace Library.DataAccess.Migrations
                             CategoryId = 1,
                             Description = "An epic adventure filled with twists and turns.",
                             ISBN = "978-1234567890",
-                            ImageUrl = "",
+                            ImageUrl = "abc.jpg",
                             ListPrice = 39.990000000000002,
                             Price = 29.989999999999998,
                             Price100 = 24.989999999999998,
@@ -145,7 +144,7 @@ namespace Library.DataAccess.Migrations
                             CategoryId = 2,
                             Description = "Unlock your potential and achieve greatness.",
                             ISBN = "978-0987654321",
-                            ImageUrl = "",
+                            ImageUrl = "ab.jpg",
                             ListPrice = 49.990000000000002,
                             Price = 39.990000000000002,
                             Price100 = 34.990000000000002,
@@ -159,7 +158,7 @@ namespace Library.DataAccess.Migrations
                             CategoryId = 3,
                             Description = "A powerful and heart-wrenching story about love and choices.",
                             ISBN = "978-0123456789",
-                            ImageUrl = "",
+                            ImageUrl = "bc.jpg",
                             ListPrice = 49.990000000000002,
                             Price = 39.990000000000002,
                             Price100 = 34.990000000000002,
@@ -173,7 +172,7 @@ namespace Library.DataAccess.Migrations
                             CategoryId = 4,
                             Description = "A suspenseful journey into the world of mystery and intrigue.",
                             ISBN = "978-0123456789",
-                            ImageUrl = "",
+                            ImageUrl = "n.jpg",
                             ListPrice = 44.990000000000002,
                             Price = 34.990000000000002,
                             Price100 = 28.989999999999998,
@@ -187,7 +186,7 @@ namespace Library.DataAccess.Migrations
                             CategoryId = 5,
                             Description = "Immerse yourself in a fantastical world of magic and wonder.",
                             ISBN = "978-5678901234",
-                            ImageUrl = "",
+                            ImageUrl = "abc.jpg",
                             ListPrice = 29.989999999999998,
                             Price = 19.989999999999998,
                             Price100 = 14.99,
