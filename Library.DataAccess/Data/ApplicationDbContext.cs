@@ -21,6 +21,7 @@ namespace Library.DataAccess.Data
                 new Category { Id = 5, Name = "Fantasy", DisplayOrder = 2 }
 
                 );
+
             modelBuilder.Entity<Product>().HasData(
             new Product
             {
