@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Library.Models
@@ -17,7 +18,7 @@ namespace Library.Models
         [DisplayName("Display Order")]
         [Range(1, 100, ErrorMessage = "Display Order must be between 1-100")]
         public int DisplayOrder { get; set; }
-
-
+        public IEnumerable<SelectListItem> CategoryList { get; set; }
+        public Product Product { get; set; }
     }
 }

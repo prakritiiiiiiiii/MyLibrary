@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Library.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240129091416_addProductsToDb")]
-    partial class addProductsToDb
+    [Migration("20240201070930_data seeding")]
+    partial class dataseeding
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -89,12 +89,18 @@ namespace Library.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("ISBN")
                         .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ImageUrl")
                         .HasColumnType("text");
 
                     b.Property<double>("ListPrice")
@@ -115,6 +121,8 @@ namespace Library.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Products");
 
                     b.HasData(
@@ -122,8 +130,10 @@ namespace Library.DataAccess.Migrations
                         {
                             Id = 1,
                             Author = "Adventure Author",
+                            CategoryId = 1,
                             Description = "An epic adventure filled with twists and turns.",
                             ISBN = "978-1234567890",
+                            ImageUrl = "",
                             ListPrice = 39.990000000000002,
                             Price = 29.989999999999998,
                             Price100 = 24.989999999999998,
@@ -134,8 +144,10 @@ namespace Library.DataAccess.Migrations
                         {
                             Id = 2,
                             Author = "Self Help Guru",
+                            CategoryId = 2,
                             Description = "Unlock your potential and achieve greatness.",
                             ISBN = "978-0987654321",
+                            ImageUrl = "",
                             ListPrice = 49.990000000000002,
                             Price = 39.990000000000002,
                             Price100 = 34.990000000000002,
@@ -146,8 +158,10 @@ namespace Library.DataAccess.Migrations
                         {
                             Id = 3,
                             Author = "Colleen Hoover",
+                            CategoryId = 3,
                             Description = "A powerful and heart-wrenching story about love and choices.",
                             ISBN = "978-0123456789",
+                            ImageUrl = "",
                             ListPrice = 49.990000000000002,
                             Price = 39.990000000000002,
                             Price100 = 34.990000000000002,
@@ -158,8 +172,10 @@ namespace Library.DataAccess.Migrations
                         {
                             Id = 4,
                             Author = "Thriller Mastermind",
+                            CategoryId = 4,
                             Description = "A suspenseful journey into the world of mystery and intrigue.",
                             ISBN = "978-0123456789",
+                            ImageUrl = "",
                             ListPrice = 44.990000000000002,
                             Price = 34.990000000000002,
                             Price100 = 28.989999999999998,
@@ -170,14 +186,27 @@ namespace Library.DataAccess.Migrations
                         {
                             Id = 5,
                             Author = "Fantasy Weaver",
+                            CategoryId = 5,
                             Description = "Immerse yourself in a fantastical world of magic and wonder.",
                             ISBN = "978-5678901234",
+                            ImageUrl = "",
                             ListPrice = 29.989999999999998,
                             Price = 19.989999999999998,
                             Price100 = 14.99,
                             Price50 = 17.989999999999998,
                             Title = "Fantasy Realm"
                         });
+                });
+
+            modelBuilder.Entity("Library.Models.Product", b =>
+                {
+                    b.HasOne("Library.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }

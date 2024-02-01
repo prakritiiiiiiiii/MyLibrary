@@ -2,6 +2,8 @@
 using Library.DataAccess.Repository.IRepository;
 using Library.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 
 namespace LibraryWeb.Areas.Admin.Controllers
 {
@@ -9,38 +11,63 @@ namespace LibraryWeb.Areas.Admin.Controllers
     public class ProductController : Controller
     {
 
-        private readonly IUnitOfWork _unitOfWork;
-        public ProductController(IUnitOfWork unitOfWork)
+        private readonly IProductRepository _unitOfWork;
+        public ProductController(IProductRepository unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
         public IActionResult Index()
         {
-            List<Product> objProductList = _unitOfWork.Product.GetAll().ToList();
+
+            List<Product> objProductList = _unitOfWork.GetAll().ToList();
+            //IEnumerable<SelectListItem> CategoryList = _unitOfWork.GetAll().Select(u => new SelectListItem
+            //{
+            //    Text = u.Name,
+            //    Value = u.Id.ToString()
+            //});
+
             return View(objProductList);
+
         }
 
 
 
 
-        public IActionResult Create()
+       public IActionResult Create()
         {
-            return View();
-        }
+            ProductViewModel model = new ProductViewModel
+            {
+                 
+                    CategoryList = _unitOfWork.GetAll().Select(u => new SelectListItem
+                    {
+
+                        Value = u.Id.ToString(),
+                    }),
+                    Product = new Product()
+                
+            };
+           return View(model);
+       }
+
+
 
         [HttpPost]
         public IActionResult Create(Product obj)
         {
-           
+
             if (ModelState.IsValid)
-            {
-               _unitOfWork.Product.Add(obj);
+            {         
+                //in case of failure, use view model as parameter, convert it to product and pass object to Add method.
+                _unitOfWork.Add(obj);
                 _unitOfWork.Save();
                 TempData["success"] = "Product created successfully.";
                 return RedirectToAction("Index");
             }
+            else
+            {
+                return View();
+            }
 
-            return View();
         }
 
 
@@ -53,8 +80,8 @@ namespace LibraryWeb.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            Product productFromDb = _unitOfWork.Product.Get(u => u.Id == id);
-
+            Product productFromDb = _unitOfWork.Get(u => u.Id == id);
+            
             if (productFromDb == null)
             {
                 return NotFound();
@@ -65,15 +92,14 @@ namespace LibraryWeb.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Edit(Product obj)
         {
-            
             if (ModelState.IsValid)
             {
-                _unitOfWork.Product.Update(obj);
+
+                _unitOfWork.Update(obj);
                 _unitOfWork.Save();
                 TempData["success"] = "Product updated successfully.";
                 return RedirectToAction("Index");
             }
-
             return View();
         }
 
@@ -87,7 +113,7 @@ namespace LibraryWeb.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            Product productFromDb = _unitOfWork.Product.Get(u => u.Id == id);
+            Product productFromDb = _unitOfWork.Get(u => u.Id == id);
 
             if (productFromDb == null)
             {
@@ -100,14 +126,14 @@ namespace LibraryWeb.Areas.Admin.Controllers
 
         public IActionResult DeletePOST(int id)
         {
-            Product obj = _unitOfWork.Product.Get(u => u.Id == id);
+            Product obj = _unitOfWork.Get(u => u.Id == id);
             if (obj == null)
             {
                 return NotFound();
             }
 
 
-            _unitOfWork.Product.Remove(obj);
+            _unitOfWork.Remove(obj);
             _unitOfWork.Save();
             TempData["success"] = "Product deleted successfully.";
             return RedirectToAction("Index");

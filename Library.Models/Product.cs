@@ -11,6 +11,8 @@ namespace Library.Models
 {
     public class Product
     {
+        public readonly object Name;
+
         [Key]
         public int Id { get; set; }
 
@@ -50,12 +52,8 @@ namespace Library.Models
         public int CategoryId { get; set; }
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
-        public string ImageUrl { get; set; }    
-        
-        
-
-
-
-        
+        public string? ImageUrl { get; set; }
+        //public object Name { get; set; }
+        //public string Name { get; set; }
     }
 }
