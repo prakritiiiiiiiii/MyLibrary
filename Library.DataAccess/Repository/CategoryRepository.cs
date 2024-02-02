@@ -1,12 +1,7 @@
 ﻿using Library.DataAccess.Data;
 using Library.DataAccess.Repository.IRepository;
 using Library.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Library.DataAccess.Repository
 {
@@ -25,7 +20,7 @@ namespace Library.DataAccess.Repository
 
         public void Update(Category obj)
         {
-            _db.Categories.Update(obj);
+            _db.Update(obj);
         }
     }
 }

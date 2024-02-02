@@ -11,18 +11,22 @@ namespace LibraryWeb.Areas.Admin.Controllers
     public class ProductController : Controller
     {
 
-        private readonly IProductRepository _unitOfWork;
-        public ProductController(IProductRepository unitOfWork)
+        private readonly IProductRepository _productRepository;
+        private readonly ICategoryRepository _categoryRepo;
+
+        public ProductController(IProductRepository productRepository,
+            ICategoryRepository categoryRepo)
         {
-            _unitOfWork = unitOfWork;
+            _productRepository = productRepository;
+           _categoryRepo = categoryRepo;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
 
-            List<Product> objProductList = _unitOfWork.GetAll().ToList();
-            //IEnumerable<SelectListItem> CategoryList = _unitOfWork.GetAll().Select(u => new SelectListItem
+            List<Product> objProductList = await _productRepository.GetAllAsync();
+            //IEnumerable<SelectListItem> categorylist = objProductList.Select(u => new SelectListItem
             //{
-            //    Text = u.Name,
+            //    Text = u.Title,
             //    Value = u.Id.ToString()
             //});
 
@@ -32,34 +36,26 @@ namespace LibraryWeb.Areas.Admin.Controllers
 
 
 
-
-       public IActionResult Create()
+        [HttpGet]
+       public async Task<IActionResult> Create()
         {
-            ProductViewModel model = new ProductViewModel
-            {
-                 
-                    CategoryList = _unitOfWork.GetAll().Select(u => new SelectListItem
-                    {
-
-                        Value = u.Id.ToString(),
-                    }),
-                    Product = new Product()
-                
-            };
-           return View(model);
-       }
+            var vm = new ProductVm();
+            vm.CategoryList = await _categoryRepo.GetAllAsync();
+           return View(vm);
+        }
 
 
 
         [HttpPost]
-        public IActionResult Create(Product obj)
+        public async Task<IActionResult> Create(ProductVm vmObj)
         {
+            vmObj.CategoryList = await _categoryRepo.GetAllAsync();
 
             if (ModelState.IsValid)
-            {         
+            {
                 //in case of failure, use view model as parameter, convert it to product and pass object to Add method.
-                _unitOfWork.Add(obj);
-                _unitOfWork.Save();
+                _productRepository.Add(vmObj.Product);
+                _productRepository.Save();
                 TempData["success"] = "Product created successfully.";
                 return RedirectToAction("Index");
             }
@@ -80,7 +76,7 @@ namespace LibraryWeb.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            Product productFromDb = _unitOfWork.Get(u => u.Id == id);
+            Product productFromDb = _productRepository.Get(u => u.Id == id);
             
             if (productFromDb == null)
             {
@@ -95,8 +91,8 @@ namespace LibraryWeb.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
 
-                _unitOfWork.Update(obj);
-                _unitOfWork.Save();
+                _productRepository.Update(obj);
+                _productRepository.Save();
                 TempData["success"] = "Product updated successfully.";
                 return RedirectToAction("Index");
             }
@@ -113,7 +109,7 @@ namespace LibraryWeb.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            Product productFromDb = _unitOfWork.Get(u => u.Id == id);
+            Product productFromDb = _productRepository.Get(u => u.Id == id);
 
             if (productFromDb == null)
             {
@@ -126,15 +122,15 @@ namespace LibraryWeb.Areas.Admin.Controllers
 
         public IActionResult DeletePOST(int id)
         {
-            Product obj = _unitOfWork.Get(u => u.Id == id);
+            Product obj = _productRepository.Get(u => u.Id == id);
             if (obj == null)
             {
                 return NotFound();
             }
 
 
-            _unitOfWork.Remove(obj);
-            _unitOfWork.Save();
+            _productRepository.Remove(obj);
+            _productRepository.Save();
             TempData["success"] = "Product deleted successfully.";
             return RedirectToAction("Index");
 

@@ -1,9 +1,28 @@
-﻿@model List<Category>
+﻿@*@model LibraryWeb.Areas.Admin.ViewModel.CategoryIndexVm*@
+@model List<Category>
 
 <partial name="_Notification"/>
 
 
     <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <form>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-2">
+                                   @* <div class="form-group">
+                                        <label asp-for="Name"></label>
+                                        <input class="form-control" asp-for="Name" name="Name"/>
+                                    </div>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     <div class="row pt-4 pb-3">
             <div class="col-6">
                 <h2 class="text-primary">
@@ -35,8 +54,8 @@
     </thead>
 
     <tbody>
-        @foreach(var obj in Model.OrderBy(u=>u.DisplayOrder))
-        {
+           @foreach(var obj in Model)
+            {
 
             <tr>
                 <td>
