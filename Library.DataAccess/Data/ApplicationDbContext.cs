@@ -1,4 +1,5 @@
 ﻿using Library.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace Library.DataAccess.Data
@@ -34,71 +35,21 @@ namespace Library.DataAccess.Data
                 Price = 29.99,
                 Price50 = 27.99,
                 Price100 = 24.99,
-                CategoryId=1,
-                ImageUrl=""
-               
+                CategoryId = 1,
+                ImageUrl = ""
 
-            },
-            new Product
-            {
-                Id = 2,
-                Title = "Self-Help Mastery",
-                Description = "Unlock your potential and achieve greatness.",
-                ISBN = "978-0987654321",
-                Author = "Self Help Guru",
-                ListPrice = 49.99,
-                Price = 39.99,
-                Price50 = 37.99,
-                Price100 = 34.99,
-                CategoryId=2,
-                ImageUrl = ""
-            },
-            new Product
-            {
-                Id = 3,
-                Title = "It Ends With Us",
-                Description = "A powerful and heart-wrenching story about love and choices.",
-                ISBN = "978-0123456789",
-                Author = "Colleen Hoover",
-                ListPrice = 49.99,
-                Price = 39.99,
-                Price50 = 37.99,
-                Price100 = 34.99,
-                CategoryId=3,
-                ImageUrl = ""
-            },
-            new Product
-            {
-                Id = 4,
-                Title = "The Thriller Code",
-                Description = "A suspenseful journey into the world of mystery and intrigue.",
-                ISBN = "978-0123456789",
-                Author = "Thriller Mastermind",
-                ListPrice = 44.99,
-                Price = 34.99,
-                Price50 = 31.99,
-                Price100 = 28.99,
-                CategoryId=4,
-                ImageUrl = ""
-            },
-            new Product
-            {
-                Id = 5,
-                Title = "Fantasy Realm",
-                Description = "Immerse yourself in a fantastical world of magic and wonder.",
-                ISBN = "978-5678901234",
-                Author = "Fantasy Weaver",
-                ListPrice = 29.99,
-                Price = 19.99,
-                Price50 = 17.99,
-                Price100 = 14.99,
-                CategoryId=5,
-                ImageUrl = ""
+
             }
-        );
 
+         );
+            
+            modelBuilder.Entity<SelectListGroup>().HasNoKey();
 
+            base.OnModelCreating(modelBuilder);
         }
+
+
+
     }
         
 }
