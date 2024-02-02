@@ -1,4 +1,4 @@
-﻿@model ProductViewModel
+﻿@model ProductVm
 
 <div class="card shadow border-0 my-4">
     <div class="card-header bg-info bg-gradient m-lg-0 py-3">
@@ -71,7 +71,7 @@
 
 
             <div class="form-floating py-2 col-12">
-                <select asp-for="Product.CategoryId" class="form-control text-dark" asp-items="Model.CategoryList">
+                <select asp-for="Product.CategoryId" class="form-control text-dark" asp-items="@Model.getCategories()">
                     <option disabled selected>Select Category</option>
                 </select>
                 <label asp-for="Product.CategoryId">Category</label>
