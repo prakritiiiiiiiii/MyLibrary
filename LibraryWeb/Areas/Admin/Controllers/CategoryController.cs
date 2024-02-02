@@ -1,6 +1,7 @@
 ﻿using Library.DataAccess.Data;
 using Library.DataAccess.Repository.IRepository;
 using Library.Models;
+using LibraryWeb.Areas.Admin.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryWeb.Areas.Admin.Controllers
@@ -9,18 +10,22 @@ namespace LibraryWeb.Areas.Admin.Controllers
     public class CategoryController : Controller
     {
 
-        private readonly ICategoryRepository _unitOfWork;
-        public CategoryController(ICategoryRepository unitOfWork)
-        {
-            _unitOfWork = unitOfWork;
-        }
-        public IActionResult Index()
-        {
-            List<Category> objCategoryList = _unitOfWork.GetAll().ToList();
-            return View(objCategoryList);
-        }
+        private readonly ICategoryRepository _categoryRepo;
 
-
+        public CategoryController(ICategoryRepository categoryRepo)
+        {
+          _categoryRepo = categoryRepo;
+        }
+        public async Task<IActionResult> IndexAsync(string Name)
+        {
+           var vm = new CategoryIndexVm();
+            vm.Categories = (await _categoryRepo.GetAllAsync()).Select(e => new CategoryInfoVm
+            {
+                Name = e.Name,
+                DisplayOrder = e.DisplayOrder
+            }).ToList();
+            return View(vm);
+        }
 
 
         public IActionResult Create()
@@ -38,8 +43,8 @@ namespace LibraryWeb.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-                _unitOfWork.Add(obj);
-                _unitOfWork.Save();
+                _categoryRepo.Add(obj);
+                _categoryRepo.Save();
                 TempData["success"] = "Category created successfully.";
                 return RedirectToAction("Index");
             }
@@ -57,7 +62,7 @@ namespace LibraryWeb.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            Category categoryFromDb = _unitOfWork.Get(u => u.Id == id);
+            Category categoryFromDb = _categoryRepo.Get(u => u.Id == id);
 
             if (categoryFromDb == null)
             {
@@ -76,8 +81,8 @@ namespace LibraryWeb.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-                _unitOfWork.Update(obj);
-                _unitOfWork.Save();
+                _categoryRepo.Update(obj);
+                _categoryRepo.Save();
                 TempData["success"] = "Category updated successfully.";
                 return RedirectToAction("Index");
             }
@@ -95,7 +100,7 @@ namespace LibraryWeb.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            Category categoryFromDb = _unitOfWork.Get(u => u.Id == id);
+            Category categoryFromDb = _categoryRepo.Get(u => u.Id == id);
 
             if (categoryFromDb == null)
             {
@@ -108,15 +113,15 @@ namespace LibraryWeb.Areas.Admin.Controllers
 
         public IActionResult DeletePOST(int id)
         {
-            Category obj = _unitOfWork.Get(u => u.Id == id);
+            Category obj = _categoryRepo.Get(u => u.Id == id);
             if (obj == null)
             {
                 return NotFound();
             }
 
 
-            _unitOfWork.Remove(obj);
-            _unitOfWork.Save();
+            _categoryRepo.Remove(obj);
+            _categoryRepo.Save();
             TempData["success"] = "Category deleted successfully.";
             return RedirectToAction("Index");
 
