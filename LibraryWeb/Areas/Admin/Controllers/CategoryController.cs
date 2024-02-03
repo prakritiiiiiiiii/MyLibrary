@@ -3,6 +3,7 @@ using Library.DataAccess.Repository.IRepository;
 using Library.Models;
 using LibraryWeb.Areas.Admin.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol.Plugins;
 
 namespace LibraryWeb.Areas.Admin.Controllers
 {
@@ -11,20 +12,18 @@ namespace LibraryWeb.Areas.Admin.Controllers
     {
 
         private readonly ICategoryRepository _categoryRepo;
+        //private readonly ICategoryRepository _car
 
         public CategoryController(ICategoryRepository categoryRepo)
         {
-          _categoryRepo = categoryRepo;
+            _categoryRepo = categoryRepo;
         }
-        public async Task<IActionResult> IndexAsync(string Name)
+
+        public IActionResult Index()
         {
-           var vm = new CategoryIndexVm();
-            vm.Categories = (await _categoryRepo.GetAllAsync()).Select(e => new CategoryInfoVm
-            {
-                Name = e.Name,
-                DisplayOrder = e.DisplayOrder
-            }).ToList();
-            return View(vm);
+
+            List<Category> obj = _categoryRepo.GetAll().ToList();
+            return View(obj);
         }
 
 
