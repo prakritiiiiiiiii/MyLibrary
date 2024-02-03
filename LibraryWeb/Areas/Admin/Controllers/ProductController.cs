@@ -3,6 +3,7 @@ using Library.DataAccess.Repository.IRepository;
 using Library.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NuGet.Protocol.Plugins;
 using System.Collections.Generic;
 
 namespace LibraryWeb.Areas.Admin.Controllers
@@ -18,125 +19,121 @@ namespace LibraryWeb.Areas.Admin.Controllers
             ICategoryRepository categoryRepo)
         {
             _productRepository = productRepository;
-           _categoryRepo = categoryRepo;
+            _categoryRepo = categoryRepo;
         }
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
 
-            List<Product> objProductList = await _productRepository.GetAllAsync();
-            //IEnumerable<SelectListItem> categorylist = objProductList.Select(u => new SelectListItem
-            //{
-            //    Text = u.Title,
-            //    Value = u.Id.ToString()
-            //});
-
-            return View(objProductList);
-
+            List<Category> obj = _categoryRepo.GetAll().ToList();
+            return View(obj);
         }
-
-
-
-        [HttpGet]
-       public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
-            var vm = new ProductVm();
-            vm.CategoryList = await _categoryRepo.GetAllAsync();
-           return View(vm);
+            ProductVm productVM = new ProductVm
+            {
+                CategoryList = _categoryRepo.GetAll().ToList(),
+                Product = new Product()
+            };
+            return View(productVM);
         }
-
-
 
         [HttpPost]
-        public async Task<IActionResult> Create(ProductVm vmObj)
-        {
-            vmObj.CategoryList = await _categoryRepo.GetAllAsync();
 
+        public IActionResult Create(ProductVm vm)
+        {
+            vm.CategoryList = _categoryRepo.GetAll().ToList();
             if (ModelState.IsValid)
             {
-                //in case of failure, use view model as parameter, convert it to product and pass object to Add method.
-                _productRepository.Add(vmObj.Product);
+               _productRepository.Add(vm.Product);
                 _productRepository.Save();
-                TempData["success"] = "Product created successfully.";
+                TempData["success"] = "Created successfully";
                 return RedirectToAction("Index");
             }
             else
             {
-                return View();
+
+                vm.CategoryList = _categoryRepo.GetAll().ToList();
             }
+            return View(vm);
 
         }
 
-
-
-        [HttpGet]
-        public IActionResult Edit(int id)
+        public IActionResult Edit(int? id)
         {
-
             if (id == null || id == 0)
             {
                 return NotFound();
             }
-            Product productFromDb = _productRepository.Get(u => u.Id == id);
-            
-            if (productFromDb == null)
+
+            Product productObj = _productRepository.Get(u => u.Id == id);
+
+            if (productObj == null)
             {
                 return NotFound();
             }
-            return View(productFromDb);
+
+            ProductVm vm1 = new ProductVm
+            {
+                Product = productObj ,
+                CategoryList = _categoryRepo.GetAll().ToList()
+            };
+
+            return View(vm1);
         }
 
+
         [HttpPost]
-        public IActionResult Edit(Product obj)
+        public IActionResult Edit(ProductVm obj2)
         {
             if (ModelState.IsValid)
             {
 
-                _productRepository.Update(obj);
+                _productRepository.Update(obj2.Product);
                 _productRepository.Save();
-                TempData["success"] = "Product updated successfully.";
+                TempData["success"] = "Updated successfully";
                 return RedirectToAction("Index");
             }
+
+            obj2.CategoryList = _categoryRepo.GetAll().ToList();
+            return View(obj2);
+        }
+
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Product Obj = _productRepository.Get(u => u.Id == id);
+
+            if (Obj == null)
+            {
+                return NotFound();
+            }
+
+
             return View();
         }
 
 
-
-        [HttpGet]
-        public IActionResult Delete(int id)
-        {
-
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-            Product productFromDb = _productRepository.Get(u => u.Id == id);
-
-            if (productFromDb == null)
-            {
-                return NotFound();
-            }
-            return View(productFromDb);
-        }
-
         [HttpPost, ActionName("Delete")]
-
-        public IActionResult DeletePOST(int id)
+        public IActionResult DeletePost(int? id)
         {
-            Product obj = _productRepository.Get(u => u.Id == id);
-            if (obj == null)
+           Product productobj =_productRepository.Get(u => u.Id == id);
+            if (productobj== null)
             {
                 return NotFound();
             }
-
-
-            _productRepository.Remove(obj);
-            _productRepository.Save();
-            TempData["success"] = "Product deleted successfully.";
-            return RedirectToAction("Index");
+            else
+            {
+                 _productRepository.Remove(productobj);
+                 _productRepository.Save();
+                TempData["success"] = "Deleted successfully";
+                return RedirectToAction("Index");
+            }
 
         }
-
-
 
 
 
