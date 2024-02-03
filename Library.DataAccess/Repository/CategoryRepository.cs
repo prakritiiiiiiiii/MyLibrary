@@ -21,6 +21,7 @@ namespace Library.DataAccess.Repository
         public void Update(Category obj)
         {
             _db.Update(obj);
+            _db.SaveChanges();
         }
     }
 }
