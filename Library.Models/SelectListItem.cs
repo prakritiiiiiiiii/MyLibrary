@@ -11,6 +11,6 @@ namespace Library.Models
         public string Name { get; set; }
         public string Value { get; set; }
         public object Text { get; set; }
-        public object Name { get; set; }
+        
     }
 }
