@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Library.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240203130834_dataSeeding")]
-    partial class dataSeeding
+    [Migration("20240218063739_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -139,6 +139,104 @@ namespace Library.DataAccess.Migrations
                             Price100 = 24.989999999999998,
                             Price50 = 27.989999999999998,
                             Title = "The Adventure Chronicles"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Author = "Algorithm Expert",
+                            CategoryId = 2,
+                            Description = "Master complex algorithms for efficient problem-solving.",
+                            ISBN = "978-5432109876",
+                            ImageUrl = "",
+                            ListPrice = 69.989999999999995,
+                            Price = 59.990000000000002,
+                            Price100 = 54.990000000000002,
+                            Price50 = 57.990000000000002,
+                            Title = "Advanced Algorithms"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Author = "Web Development Guru",
+                            CategoryId = 2,
+                            Description = "A comprehensive guide to modern web development techniques.",
+                            ISBN = "978-6789012345",
+                            ImageUrl = "",
+                            ListPrice = 54.990000000000002,
+                            Price = 44.990000000000002,
+                            Price100 = 39.990000000000002,
+                            Price50 = 42.990000000000002,
+                            Title = "Web Development Unleashed"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Author = "Colleen Hoover",
+                            CategoryId = 3,
+                            Description = "A powerful and emotionally charged novel exploring complex relationships.",
+                            ISBN = "978-1501110368",
+                            ImageUrl = "",
+                            ListPrice = 32.990000000000002,
+                            Price = 26.989999999999998,
+                            Price100 = 22.989999999999998,
+                            Price50 = 24.989999999999998,
+                            Title = "It Ends with Us"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Author = "Thriller Writer",
+                            CategoryId = 3,
+                            Description = "Thrill-seekers, get ready for a rollercoaster of emotions.",
+                            ISBN = "978-8901234567",
+                            ImageUrl = "",
+                            ListPrice = 42.990000000000002,
+                            Price = 32.990000000000002,
+                            Price100 = 27.989999999999998,
+                            Price50 = 30.989999999999998,
+                            Title = "Suspenseful Thrillers"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Author = "AI Enthusiast",
+                            CategoryId = 4,
+                            Description = "A guide to understanding and implementing AI concepts.",
+                            ISBN = "978-4567890123",
+                            ImageUrl = "",
+                            ListPrice = 64.989999999999995,
+                            Price = 54.990000000000002,
+                            Price100 = 49.990000000000002,
+                            Price50 = 52.990000000000002,
+                            Title = "Artificial Intelligence Essentials"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Author = "Jane Austen",
+                            CategoryId = 3,
+                            Description = "Jane Austen's classic novel about love, class, and societal expectations.",
+                            ISBN = "978-0141439518",
+                            ImageUrl = "",
+                            ListPrice = 28.989999999999998,
+                            Price = 22.989999999999998,
+                            Price100 = 18.989999999999998,
+                            Price50 = 20.989999999999998,
+                            Title = "Pride and Prejudice"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Author = "War Historian",
+                            CategoryId = 5,
+                            Description = "An in-depth look at the major conflicts that shaped the world.",
+                            ISBN = "978-6789012345",
+                            ImageUrl = "",
+                            ListPrice = 44.990000000000002,
+                            Price = 34.990000000000002,
+                            Price100 = 29.989999999999998,
+                            Price50 = 32.990000000000002,
+                            Title = "World Wars Chronicle"
                         });
                 });
 
