@@ -11,7 +11,6 @@ namespace LibraryWeb.Areas.Admin.Controllers
     [Area("Admin")]
     public class ProductController : Controller
     {
-
         private readonly IProductRepository _productRepository;
         private readonly ICategoryRepository _categoryRepo;
 
@@ -21,15 +20,31 @@ namespace LibraryWeb.Areas.Admin.Controllers
             _productRepository = productRepository;
             _categoryRepo = categoryRepo;
         }
-        public IActionResult Index()
+        public IActionResult Index(String searchstring ,long categoryid)
         {
+            ViewBag.categorylist = _categoryRepo.GetAll().ToList();
+            ViewBag.Searchstring = searchstring;
+            List<Product> obj = _productRepository.GetAll().ToList();
+            if (searchstring != null)
+            {
+                obj = obj.Where(
+                    x => x.Title.Contains(searchstring, StringComparison.OrdinalIgnoreCase)
+                    || x.Description.Contains(searchstring, StringComparison.OrdinalIgnoreCase)
 
-            List<Category> obj = _categoryRepo.GetAll().ToList();
+                ).ToList();
+            }
+            if(categoryid != 0)
+            {
+                obj = obj.Where(x => x.CategoryId == categoryid).ToList();
+            }
             return View(obj);
         }
+
+
+
         public IActionResult Create()
         {
-            ProductVm productVM = new ProductVm
+            ProductVm productVM = new ProductVm()
             {
                 CategoryList = _categoryRepo.GetAll().ToList(),
                 Product = new Product()
@@ -41,20 +56,26 @@ namespace LibraryWeb.Areas.Admin.Controllers
 
         public IActionResult Create(ProductVm vm)
         {
-            vm.CategoryList = _categoryRepo.GetAll().ToList();
-            if (ModelState.IsValid)
-            {
-               _productRepository.Add(vm.Product);
-                _productRepository.Save();
-                TempData["success"] = "Created successfully";
-                return RedirectToAction("Index");
-            }
-            else
-            {
+            //if (ModelState.IsValid)
+            //{
+            //    _productRepository.Add(vm.Product);
+            //    _productRepository.Save();
+            //    TempData["success"] = "Created successfully";
+            //    return RedirectToAction("Index");
+            //}
+            //else
+            //{
 
-                vm.CategoryList = _categoryRepo.GetAll().ToList();
-            }
-            return View(vm);
+            //    vm.CategoryList = _categoryRepo.GetAll().ToList();
+            //}  
+            _productRepository.Add(vm.Product);
+            _productRepository.Save();
+            TempData["success"] = "Created successfully";
+            return RedirectToAction("Index");
+
+
+
+            //return Content($"{vm.Product.Name}{vm.Product.ISBN},{vm.Product.ISBN}{vm.Product.Description}");
 
         }
 
@@ -74,7 +95,7 @@ namespace LibraryWeb.Areas.Admin.Controllers
 
             ProductVm vm1 = new ProductVm
             {
-                Product = productObj ,
+                Product = productObj,
                 CategoryList = _categoryRepo.GetAll().ToList()
             };
 
@@ -85,62 +106,37 @@ namespace LibraryWeb.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Edit(ProductVm obj2)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
 
-                _productRepository.Update(obj2.Product);
-                _productRepository.Save();
-                TempData["success"] = "Updated successfully";
-                return RedirectToAction("Index");
-            }
+            //    _productRepository.Update(obj2.Product);
+            //    _productRepository.Save();
+            //    TempData["success"] = "Updated successfully";
+            //    return RedirectToAction("Index");
+            //}
 
-            obj2.CategoryList = _categoryRepo.GetAll().ToList();
-            return View(obj2);
+            //obj2.CategoryList = _categoryRepo.GetAll().ToList();
+            //return View(obj2);
+            _productRepository.Update(obj2.Product);
+            _productRepository.Save();
+            TempData["success"] = "Updated successfully";
+            return RedirectToAction("Index");
         }
 
         public IActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Product Obj = _productRepository.Get(u => u.Id == id);
-
-            if (Obj == null)
-            {
-                return NotFound();
-            }
-
-
-            return View();
-        }
-
-
-        [HttpPost, ActionName("Delete")]
-        public IActionResult DeletePost(int? id)
-        {
-           Product productobj =_productRepository.Get(u => u.Id == id);
-            if (productobj== null)
+            Product productobj = _productRepository.Get(u => u.Id == id);
+            if (productobj == null)
             {
                 return NotFound();
             }
             else
             {
-                 _productRepository.Remove(productobj);
-                 _productRepository.Save();
+                _productRepository.Remove(productobj);
+                _productRepository.Save();
                 TempData["success"] = "Deleted successfully";
                 return RedirectToAction("Index");
             }
-
         }
-
-
-
-
-
     }
-
-
-
 }
