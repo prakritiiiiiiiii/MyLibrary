@@ -1,5 +1,6 @@
 ﻿@model List<Product>
 
+
 <partial name="_Notification"/>
 
 
@@ -14,10 +15,23 @@
             <a asp-controller="Product" asp-action="Create" class="btn btn-primary">
                 <i class="bi bi-patch-plus"></i> Create New Product
             </a>
-
         </div>
         </div>
-
+        <form class="row" method="get"  asp-controller="Product" asp-action="Index">
+        <select name="categoryid">
+            <option value="0">All</option>
+            @foreach(Category item in ViewBag.categorylist)
+            {
+                <option value="@item.Id">@item.Name</option>
+            }
+        </select>
+        <div class="col-md-6 d-flex flex-row">
+            <input type="search" id="form1" name="searchstring" value="@ViewBag.Searchstring" class="form-control w-25" />
+            <button type="submit" class="btn btn-primary" data-mdb-ripple-init>
+                🔎
+            </button>
+        </div>
+        </form>
 
 <table class="table table-bordered table-striped">
 
@@ -56,7 +70,7 @@
                     </td>
 
                     <td>
-
+                        @obj.Category.Name
                     </td>
                     
                 <td> 
