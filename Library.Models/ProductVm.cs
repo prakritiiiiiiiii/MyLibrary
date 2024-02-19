@@ -13,6 +13,7 @@ namespace Library.Models
 
         public SelectList getCategories() => new SelectList(CategoryList,nameof(Category.Id), nameof(Category.Name), Product.CategoryId);
         public Category Category { get; set; }
+
         //public IEnumerable<SelectListItem> CategoryList { get; set; }
 
     }
