@@ -53,6 +53,8 @@ namespace Library.Models
 
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
+
+       
         public string? ImageUrl { get; set; }
         //public object Name { get; set; }
         //public string Name { get; set; }
