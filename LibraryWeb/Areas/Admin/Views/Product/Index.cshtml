@@ -4,7 +4,26 @@
 <partial name="_Notification"/>
 
 
-    <div class="container">
+<div class="container>
+<div class="row">
+        <!--<div class="col-12">
+            <form>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-2">
+    @* <div class="form-group">
+                                <label asp-for="Name"></label>
+                                <input class="form-control" asp-for="Name" name="Name"/>
+                                </div>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>-->
+</div>
+
     <div class="row pt-4 pb-3">
             <div class="col-6">
                 <h2 class="text-primary">
@@ -18,19 +37,19 @@
         </div>
         </div>
         <form class="row" method="get"  asp-controller="Product" asp-action="Index">
-        <select name="categoryid">
+        <!--<select name="categoryid">
             <option value="0">All</option>
-            @foreach(Category item in ViewBag.categorylist)
-            {
-                <option value="@item.Id">@item.Name</option>
-            }
-        </select>
-        <div class="col-md-6 d-flex flex-row">
+        @foreach (Category item in ViewBag.categorylist)
+        {
+                    <option value="@item.Id">@item.Name</option>
+        }
+        </select>-->
+        <!--<div class="col-md-6 d-flex flex-row">
             <input type="search" id="form1" name="searchstring" value="@ViewBag.Searchstring" class="form-control w-25" />
             <button type="submit" class="btn btn-primary" data-mdb-ripple-init>
                 🔎
             </button>
-        </div>
+        </div>-->
         </form>
 
 <table class="table table-bordered table-striped">
@@ -42,11 +61,10 @@
             <th>Price</th>
             <th>Author</th>
             <th>Category</th>
-
+                <!--  <th>Image</th>-->
+            <th>Action</th>
             
-            <th>
-
-            </th>
+            
 
         </tr>
     </thead>
@@ -72,6 +90,9 @@
                     <td>
                         @obj.Category.Name
                     </td>
+                    <!-- <td>
+                @obj.ImageUrl
+                     </td-->
                     
                 <td> 
                     <div class="w-75 btn-group" role="group">
@@ -90,4 +111,4 @@
     </tbody>
 </table>
 
-    </div>
+</div>
