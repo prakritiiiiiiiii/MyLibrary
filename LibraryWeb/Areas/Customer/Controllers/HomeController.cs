@@ -1,4 +1,7 @@
-﻿using Library.Models;
+﻿using Library.DataAccess.Repository;
+using Library.DataAccess.Repository.IRepository;
+using Library.Models;
+using LibraryWeb.Areas.Admin.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -8,15 +11,26 @@ namespace LibraryWeb.Areas.Customer.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IProductRepository _productRepository;
+        private readonly ICategoryRepository _categoryRepository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IProductRepository productRepository, ICategoryRepository categoryRepository)
         {
             _logger = logger;
+            _productRepository = productRepository;
+            _categoryRepository = categoryRepository;
         }
 
         public IActionResult Index()
         {
-            return View();
+
+            DashboardVm Dvm = new DashboardVm
+            {
+                CategoryCount = _categoryRepository.GetAll().Count(),
+                ProductCount = _productRepository.GetAll().Count()
+            };
+
+            return View(Dvm);
         }
 
         public IActionResult Privacy()
