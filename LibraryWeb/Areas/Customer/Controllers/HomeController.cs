@@ -20,8 +20,9 @@ namespace LibraryWeb.Areas.Customer.Controllers
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
         }
-
+       
         public IActionResult Index()
+        
         {
 
             DashboardVm Dvm = new DashboardVm
