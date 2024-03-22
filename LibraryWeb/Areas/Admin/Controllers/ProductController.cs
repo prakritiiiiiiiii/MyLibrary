@@ -1,6 +1,7 @@
 ﻿using Library.DataAccess.Data;
 using Library.DataAccess.Repository.IRepository;
 using Library.Models;
+using LibraryWeb.Helper.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using NuGet.Protocol.Plugins;
@@ -13,13 +14,15 @@ namespace LibraryWeb.Areas.Admin.Controllers
     {
         private readonly IProductRepository _productRepository;
         private readonly ICategoryRepository _categoryRepo;
+        private readonly IFileHelper _fileHelper;
 
-        public ProductController(IProductRepository productRepository,
-            ICategoryRepository categoryRepo)
+        public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepo, IFileHelper fileHelper)
         {
             _productRepository = productRepository;
             _categoryRepo = categoryRepo;
+            _fileHelper = fileHelper;
         }
+
         public IActionResult Index(String searchstring ,long categoryid)
         {
             ViewBag.categorylist = _categoryRepo.GetAll().ToList();
@@ -54,7 +57,7 @@ namespace LibraryWeb.Areas.Admin.Controllers
 
         [HttpPost]
 
-        public IActionResult Create(ProductVm vm)
+        public IActionResult Create(ProductVm vm, IFormFile Image)
         {
             //if (ModelState.IsValid)
             //{
@@ -68,6 +71,10 @@ namespace LibraryWeb.Areas.Admin.Controllers
 
             //    vm.CategoryList = _categoryRepo.GetAll().ToList();
             //}  
+            if(Image != null)
+            {
+                vm.Product.ImageUrl = _fileHelper.SaveFileAndReturnName("images//product", Image);
+            }
             _productRepository.Add(vm.Product);
             _productRepository.Save();
             TempData["success"] = "Created successfully";
