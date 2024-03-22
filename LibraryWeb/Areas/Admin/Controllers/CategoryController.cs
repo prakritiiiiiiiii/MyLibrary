@@ -118,17 +118,12 @@ namespace LibraryWeb.Areas.Admin.Controllers
                 return NotFound();
             }
 
-
             _categoryRepo.Remove(obj);
             _categoryRepo.Save();
             TempData["success"] = "Category deleted successfully.";
             return RedirectToAction("Index");
 
         }
-
-
-
-
 
 
 
