@@ -1,6 +1,12 @@
 ﻿@model List<Product>
 
-
+<style>
+    /* Custom CSS for tiny image */
+    .tiny-img {
+        width: 50px; /* Set the width of the image */
+        height: 50px; /* Set the height of the image */
+    }
+</style>
 <partial name="_Notification"/>
 
 
@@ -61,7 +67,7 @@
             <th>Price</th>
             <th>Author</th>
             <th>Category</th>
-            <!--  <th>Image</th>-->
+            <th>Image</th>
             <th>Action</th>
             
             
@@ -90,9 +96,9 @@
                     <td>
                         @obj.Category.Name
                     </td>
-                    <!-- <td>
-                @obj.ImageUrl
-                     </td-->
+                    <td>
+                        <img class="tiny-img" src="~/images/product/@obj.ImageUrl"/>
+                    </td>
                     
                 <td> 
                     <div class="w-75 btn-group" role="group">
