@@ -4,6 +4,7 @@ using Library.Models;
 using LibraryWeb.Helper.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol.Plugins;
 using System.Collections.Generic;
 
@@ -14,12 +15,15 @@ namespace LibraryWeb.Areas.Admin.Controllers
     {
         private readonly IProductRepository _productRepository;
         private readonly ICategoryRepository _categoryRepo;
+        private readonly ApplicationDbContext _context;
         private readonly IFileHelper _fileHelper;
 
-        public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepo, IFileHelper fileHelper)
+
+        public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepo, ApplicationDbContext context, IFileHelper fileHelper)
         {
             _productRepository = productRepository;
             _categoryRepo = categoryRepo;
+            _context = context;
             _fileHelper = fileHelper;
         }
 
@@ -81,7 +85,6 @@ namespace LibraryWeb.Areas.Admin.Controllers
             return RedirectToAction("Index");
 
 
-
             //return Content($"{vm.Product.Name}{vm.Product.ISBN},{vm.Product.ISBN}{vm.Product.Description}");
 
         }
@@ -111,7 +114,7 @@ namespace LibraryWeb.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public IActionResult Edit(ProductVm obj2)
+        public IActionResult Edit(ProductVm obj2,IFormFile Image)
         {
             //if (ModelState.IsValid)
             //{
@@ -121,9 +124,27 @@ namespace LibraryWeb.Areas.Admin.Controllers
             //    TempData["success"] = "Updated successfully";
             //    return RedirectToAction("Index");
             //}
-
+            var previous = _context.Set<Product>().Find(obj2.Product.Id);
+            if(Image!=null)
+            {
+                if(previous.ImageUrl != String.Empty)
+                {
+                    _fileHelper.Delete("images//product", previous.ImageUrl);
+                }
+                obj2.Product.ImageUrl = _fileHelper.SaveFileAndReturnName("images//product", Image);
+            }
+            else
+            {
+                obj2.Product.ImageUrl = previous.ImageUrl;
+            }
             //obj2.CategoryList = _categoryRepo.GetAll().ToList();
             //return View(obj2);
+            var existingProductEntry = _context.Entry(previous);
+            if (existingProductEntry.State == EntityState.Unchanged)
+            {
+                // Detach the entity if it's currently being tracked
+                existingProductEntry.State = EntityState.Detached;
+            }
             _productRepository.Update(obj2.Product);
             _productRepository.Save();
             TempData["success"] = "Updated successfully";
@@ -139,10 +160,13 @@ namespace LibraryWeb.Areas.Admin.Controllers
             }
             else
             {
+
+                _fileHelper.Delete("images//product",productobj.ImageUrl);
                 _productRepository.Remove(productobj);
                 _productRepository.Save();
                 TempData["success"] = "Deleted successfully";
                 return RedirectToAction("Index");
+
             }
         }
     }
