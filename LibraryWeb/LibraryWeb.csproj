@@ -28,10 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\images\product\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="Areas\Admin\Views\Product\Create.cshtml" />
     <None Include="Areas\Admin\Views\Product\Edit.cshtml" />
     <None Include="Areas\Admin\Views\Product\Index.cshtml" />
