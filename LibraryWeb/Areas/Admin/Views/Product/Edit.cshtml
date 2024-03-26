@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="card-body p-4">
-        <form method="post" action="Edit">
+        <form enctype="multipart/form-data" method="post" action="Edit">
             <input asp-for="Product.Id" hidden />
             <div class="border pt-0 mt-1 ">
             </div>
@@ -78,9 +78,8 @@
             </div>
 
             <div class="form-floating py-2 col-12">
-                <input type="file" class="form-control border-0 shadow"  />
-                <label asp-for="Product.ImageUrl" class="ms-2"> </label>
-
+                <input name="Image" type="file" class="form-control border-0 shadow" />
+                <label class="ms-2"> </label>
             </div>
 
 
