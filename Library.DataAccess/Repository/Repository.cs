@@ -30,6 +30,11 @@ namespace Library.DataAccess.Repository
             dbSet.Add(entity);
         }
 
+        public T? Find(int Id)
+        {
+            return dbSet.Find(Id);
+        }
+
         public T Get(Expression<Func<T, bool>> filter)
         {
             IQueryable<T> query = dbSet;
