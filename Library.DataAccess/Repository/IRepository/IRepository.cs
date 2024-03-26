@@ -21,6 +21,8 @@ namespace Library.DataAccess.Repository.IRepository
         void Remove(T entity);
         void RemoveRange(T entity);
 
+        T? Find(int Id);
+
 
     }
 }
