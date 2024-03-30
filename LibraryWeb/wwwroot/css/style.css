@@ -1,0 +1,28 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.left-image, .right-image {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50vw;
+    height: 100vh;
+    object-fit: cover;
+}
+
+.left-image {
+    left: 0;
+}
+
+.right-image {
+    right: 0;
+}
