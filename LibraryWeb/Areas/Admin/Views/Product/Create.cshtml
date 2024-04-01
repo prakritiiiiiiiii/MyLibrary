@@ -13,6 +13,14 @@
     </div>
     <div class="card-body p-4">
         <form enctype="multipart/form-data" method="post" class="row">
+            <input asp-for="Product.Id" hidden />
+            <div class="row">
+                <div class="col-10 ">
+                </div>
+                <div class=" col-2">
+                </div>
+            </div>
+          
             <div class="border pt-0 mt-1 ">
             </div>
                 <div class="form-floating py-2 col-12">
@@ -88,6 +96,7 @@
 
 
 
+
             <div class="row pt-2">
                 <div class="col-6 col-md-3 ">
                     <button type="submit" class="btn btn-outline-info form-control">Create</button>
@@ -101,6 +110,11 @@
                 </div>
             </div>
 
+
+            <div class="col-2">
+                <img src="@Model.Product.ImageUrl" width="100%"
+                     style="border-radius:5px"; border:1px/>
+            </div>
 
 
 
