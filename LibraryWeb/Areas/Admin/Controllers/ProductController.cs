@@ -108,9 +108,10 @@ namespace LibraryWeb.Areas.Admin.Controllers
                 Product = productObj,
                 CategoryList = _categoryRepo.GetAll().ToList()
             };
-
+            ViewBag.Img = productObj.ImageUrl;
             return View(vm1);
         }
+
 
 
         [HttpPost]
@@ -150,6 +151,7 @@ namespace LibraryWeb.Areas.Admin.Controllers
             TempData["success"] = "Updated successfully";
             return RedirectToAction("Index");
         }
+
 
         public IActionResult Delete(int? id)
         {
