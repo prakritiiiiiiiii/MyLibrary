@@ -1,5 +1,11 @@
 ﻿@model ProductVm
-
+<style>
+    /* Custom CSS for tiny image */
+    .edit-img {
+        width: 250px; /* Set the width of the image */
+        height:350px; /* Set the height of the image */
+    }
+</style>
 
 <div class="card shadow border-0 my-4">
     <div class="card-header bg-info bg-gradient m-lg-0 py-3">
@@ -13,6 +19,8 @@
     <div class="card-body p-4">
         <form enctype="multipart/form-data" method="post" action="Edit">
             <input asp-for="Product.Id" hidden />
+            <div class="border-1">
+            </div>
             <div class="border pt-0 mt-1 ">
             </div>
             <div class="form-floating py-2 col-12">
@@ -23,10 +31,19 @@
 
 
             <div class="form-floating py-2 col-12">
-                <textarea asp-for="Product.Description" class="form-control border-0 shadow"> </textarea>
-                <label asp-for="Product.Description" class="ms-2"> </label>
-               
+                <div class="row">
+                    <div class="col-9">
+                        <textarea asp-for="Product.Description" class="form-control border-0 shadow"> </textarea>
+                        <label asp-for="Product.Description" class="ms-2"> </label>
+                    </div>
+                    <div class="col-3">
+                        <img class="edit-img" src="~/images/product/@ViewBag.Img" />
+                    </div>
+                </div>
+
             </div>
+
+
 
 
             <div class="form-floating py-2 col-12">
@@ -84,22 +101,20 @@
 
 
 
-                <div class="row pt-2">
-                    <div class="col-6 col-md-3 ">
-                        <button type="submit" class="btn btn-outline-warning form-control">Update</button>
-                    </div>
-
-                    <div class="col-6 col-md-3">
-                        <a asp  asp-area="Admin" asp-controller="Product" asp-action="Index" class="btn btn-secondary form-control">
-                            Back to List
-                        </a>
-
-                    </div>
+            <div class="row pt-2">
+                <div class="col-6 col-md-3 ">
+                    <button type="submit" class="btn btn-outline-warning form-control">Update</button>
                 </div>
 
+                <div class="col-6 col-md-3">
+                    <a asp asp-area="Admin" asp-controller="Product" asp-action="Index" class="btn btn-secondary form-control">
+                        Back to List
+                    </a>
+
+                </div>
+            </div>
 
 
-            
         </form>
 
     </div>
@@ -108,6 +123,7 @@
 @section Scripts{
 
     <script>
+
         tinymce.init({
             selector: 'textarea',
             plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate mentions  tableofcontents footnotes mergetags autocorrect typography inlinecss markdown',
