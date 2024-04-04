@@ -19,6 +19,7 @@ namespace LibraryWeb.Areas.Admin.Controllers
         private readonly IFileHelper _fileHelper;
 
 
+
         public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepo, ApplicationDbContext context, IFileHelper fileHelper)
         {
             _productRepository = productRepository;
@@ -39,6 +40,7 @@ namespace LibraryWeb.Areas.Admin.Controllers
                     || x.Description.Contains(searchstring, StringComparison.OrdinalIgnoreCase)
 
                 ).ToList();
+
             }
             if(categoryid != 0)
             {
@@ -46,7 +48,6 @@ namespace LibraryWeb.Areas.Admin.Controllers
             }
             return View(obj);
         }
-
 
 
         public IActionResult Create()
@@ -58,6 +59,7 @@ namespace LibraryWeb.Areas.Admin.Controllers
             };
             return View(productVM);
         }
+
 
         [HttpPost]
 
@@ -75,6 +77,7 @@ namespace LibraryWeb.Areas.Admin.Controllers
 
             //    vm.CategoryList = _categoryRepo.GetAll().ToList();
             //}  
+
             if(Image != null)
             {
                 vm.Product.ImageUrl = _fileHelper.SaveFileAndReturnName("images//product", Image);
@@ -171,5 +174,7 @@ namespace LibraryWeb.Areas.Admin.Controllers
 
             }
         }
+
+
     }
 }
