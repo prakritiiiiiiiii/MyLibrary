@@ -12,6 +12,7 @@ namespace Library.DataAccess.Repository
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _db;
+
         public ICategoryRepository Category { get; private set; }
         public IProductRepository Product { get; private set; }
 
@@ -26,7 +27,7 @@ namespace Library.DataAccess.Repository
         {
             _db.SaveChanges();
         }
-
+        
         public void Update(Product product)
         {
             _db.Products.Update(product);
