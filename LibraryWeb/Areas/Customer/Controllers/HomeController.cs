@@ -14,6 +14,8 @@ namespace LibraryWeb.Areas.Customer.Controllers
         private readonly IProductRepository _productRepository;
         private readonly ICategoryRepository _categoryRepository;
 
+
+
         public HomeController(ILogger<HomeController> logger, IProductRepository productRepository, ICategoryRepository categoryRepository)
         {
             _logger = logger;
