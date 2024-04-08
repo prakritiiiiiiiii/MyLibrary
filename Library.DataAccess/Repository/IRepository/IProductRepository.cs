@@ -9,7 +9,8 @@ namespace Library.DataAccess.Repository.IRepository
 {
     public interface IProductRepository : IRepository<Models.Product>
     {
-       void Save();
+        object Product { get; set; }
+        void Save();
        void Update(Models.Product obj);
 
 
