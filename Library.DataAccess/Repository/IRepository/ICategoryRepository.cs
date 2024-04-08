@@ -6,6 +6,5 @@ namespace Library.DataAccess.Repository.IRepository
     {
         void Update(Category category);
         void Save();
-      
     }
 }
