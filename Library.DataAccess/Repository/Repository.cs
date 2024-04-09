@@ -42,13 +42,11 @@ namespace Library.DataAccess.Repository
             return query.FirstOrDefault();
         }
 
-        public IEnumerable<T> GetAll()
+        public List<T> GetAll()
         {
-            IQueryable<T> query = dbSet;
-            return query.ToList();
+            return dbSet.ToList();
 
         }
-
         public void Remove(T entity)
         {
             dbSet.Remove(entity);
