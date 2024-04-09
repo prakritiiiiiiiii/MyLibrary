@@ -15,7 +15,7 @@ namespace Library.DataAccess.Repository.IRepository
 
         //void Save();
         //void Update(Category obj);
-        IEnumerable<T> GetAll();
+        List<T> GetAll();
         T Get(Expression<Func<T, bool>> filter);
         void Add(T entity);
         void Remove(T entity);
