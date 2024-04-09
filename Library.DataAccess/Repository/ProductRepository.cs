@@ -18,6 +18,8 @@ namespace Library.DataAccess.Repository
             _db = db;
         }
 
+        public object Product { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public void Save()
         {
             _db.SaveChanges();
@@ -28,6 +30,5 @@ namespace Library.DataAccess.Repository
             _db.Update(obj);
             _db.SaveChanges();
         }
-
     }
 }
