@@ -5,6 +5,7 @@ using LibraryWeb.Helper.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using NuGet.Protocol.Plugins;
 using System.Collections.Generic;
 
@@ -19,8 +20,6 @@ namespace LibraryWeb.Areas.Admin.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IFileHelper _fileHelper;
 
-
-
         public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepo, ApplicationDbContext context, IFileHelper fileHelper)
         {
             _productRepository = productRepository;
@@ -29,11 +28,12 @@ namespace LibraryWeb.Areas.Admin.Controllers
             _fileHelper = fileHelper;
         }
 
+
         public IActionResult Index(String searchstring ,long categoryid)
         {
-            ViewBag.categorylist = _categoryRepo.GetAll().ToList();
+            ViewBag.categorylist = _categoryRepo.GetAll();
             ViewBag.Searchstring = searchstring;
-            List<Product> obj = _productRepository.GetAll().ToList();
+            var obj = _productRepository.GetAll();
             if (searchstring != null)
             {
                 obj = obj.Where(
@@ -55,12 +55,11 @@ namespace LibraryWeb.Areas.Admin.Controllers
         {
             ProductVm productVM = new ProductVm()
             {
-                CategoryList = _categoryRepo.GetAll().ToList(),
+                CategoryList = _categoryRepo.GetAll(),
                 Product = new Product()
             };
             return View(productVM);
         }
-
 
 
         [HttpPost]
@@ -80,6 +79,7 @@ namespace LibraryWeb.Areas.Admin.Controllers
             //    vm.CategoryList = _categoryRepo.GetAll().ToList();
             //}  
 
+
             if(Image != null)
             {
                 vm.Product.ImageUrl = _fileHelper.SaveFileAndReturnName("images//product", Image);
@@ -93,6 +93,7 @@ namespace LibraryWeb.Areas.Admin.Controllers
             //return Content($"{vm.Product.Name}{vm.Product.ISBN},{vm.Product.ISBN}{vm.Product.Description}");
 
         }
+
 
         public IActionResult Edit(int? id)
         {
@@ -116,7 +117,6 @@ namespace LibraryWeb.Areas.Admin.Controllers
             ViewBag.Img = productObj.ImageUrl;
             return View(vm1);
         }
-
 
 
         [HttpPost]
