@@ -22,8 +22,7 @@ namespace LibraryWeb.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-
-            List<Category> obj = _categoryRepo.GetAll().ToList();
+            var obj = _categoryRepo.GetAll();
             return View(obj);
         }
 
