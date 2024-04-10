@@ -26,6 +26,7 @@ namespace LibraryWeb.Areas.Admin.Controllers
             _categoryRepo = categoryRepo;
             _context = context;
             _fileHelper = fileHelper;
+           
         }
 
 
@@ -60,6 +61,7 @@ namespace LibraryWeb.Areas.Admin.Controllers
             };
             return View(productVM);
         }
+       
 
 
         [HttpPost]
