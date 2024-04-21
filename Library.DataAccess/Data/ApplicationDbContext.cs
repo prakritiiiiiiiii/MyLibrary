@@ -23,6 +23,7 @@ namespace Library.DataAccess.Data
 
                 );
 
+
             modelBuilder.Entity<Product>().HasData(
             new Product
             {
@@ -40,6 +41,7 @@ namespace Library.DataAccess.Data
 
 
             },
+
 
             new Product
             {
