@@ -21,6 +21,8 @@ namespace Library.Models
 
         public string Description { get; set; }
 
+
+
         [Required]
         public string ISBN { get; set; }    
             
