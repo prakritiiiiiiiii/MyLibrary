@@ -80,6 +80,7 @@ namespace LibraryWeb.Areas.Admin.Controllers
 
             //    vm.CategoryList = _categoryRepo.GetAll().ToList();
             //}  
+            
 
 
             if(Image != null)
@@ -95,6 +96,7 @@ namespace LibraryWeb.Areas.Admin.Controllers
             //return Content($"{vm.Product.Name}{vm.Product.ISBN},{vm.Product.ISBN}{vm.Product.Description}");
 
         }
+
 
 
         public IActionResult Edit(int? id)
