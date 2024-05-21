@@ -29,7 +29,6 @@ namespace LibraryWeb.Areas.Admin.Controllers
            
         }
 
-
         public IActionResult Index(String searchstring ,long categoryid)
         {
             ViewBag.categorylist = _categoryRepo.GetAll();
@@ -160,8 +159,6 @@ namespace LibraryWeb.Areas.Admin.Controllers
             TempData["success"] = "Updated successfully";
             return RedirectToAction("Index");
         }
-
-
         public IActionResult Delete(int? id)
         {
             Product productobj = _productRepository.Get(u => u.Id == id);
