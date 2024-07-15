@@ -24,7 +24,6 @@ namespace LibraryWeb.Areas.Admin.Controllers
             return View(obj);
         }
 
-
         public IActionResult Create()
         {
             return View();
