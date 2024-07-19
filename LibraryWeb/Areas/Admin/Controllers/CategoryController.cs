@@ -12,6 +12,7 @@ namespace LibraryWeb.Areas.Admin.Controllers
 
     {
         private readonly ICategoryRepository _categoryRepo;
+          
         //private readonly ICategoryRepository _car
 
         public CategoryController(ICategoryRepository categoryRepo)
